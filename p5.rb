@@ -1,38 +1,22 @@
-class Integer
 
-  def factorial
-    (1..self).inject(:*)
+# 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+#
+# What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+
+
+
+require 'Benchmark'
+
+def find
+  list = []
+  1.upto(20) do |x|
+    list << x.find_divisors
   end
-
-  def !
-    (1..self).inject(:*)
-  end
-
+  list.flatten!.uniq!
+  total = list.inject(:*)
+  return total
 end
 
-
-class SPI
-
-  def initialize(max)
-    find(max)
-  end
-
-  def find(x = 10000)
-    answer = 0
-    y = 20
-    while x > (y * y)
-      while y > 0
-        if x % y == 0 && y == 1
-          answer = x
-        elsif x % y == 0
-          y -= 1
-        else
-          x -= 1
-        end
-      end
-      x -= 1
-    end
-
-  end
-
-end
+# Benchmark.measure { find }
+f = find
